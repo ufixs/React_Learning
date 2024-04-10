@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类式组件</title>
+</head>
+<body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!--  引入react—dom，用于react操纵dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!--  -->
+    <script type="text/babel">
+        class MyComponent extends React.Component{
+            render(){
+                console.log(this); //MyComponent
+                return <h1>我是类定义的组件（适合【复杂组件】定义）</h1>
+            };
+        };
+        ReactDOM.render(<MyComponent/>,document.getElementById("test"));
+
+        /*
+        执行reactDOM.render之后：
+            1.react解析组件标签发现是类组件MyComponent
+            2.随后自动new一个该类的实例对象，并调用原型上的render方法
+            3.将render返回的虚拟DOM转为真实DOM，呈现在页面中
+        */ 
+    </script>
+</body>
+</html>

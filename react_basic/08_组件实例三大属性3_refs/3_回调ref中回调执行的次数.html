@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>refs</title>
+</head>
+<body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!--  引入react—dom，用于react操纵dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // 创建
+        class Demo extends React.Component{
+            state = {isHot:true}
+            changeWeather = ()=>{
+                const {isHot} = this.state
+                this.setState({isHot:!isHot})
+            }
+            showData = ()=>{
+                // 展示左侧输入框
+                // console.log(this.input1.value);
+                alert(this.input1.value)
+            }
+            saveInput = (c)=>{
+                console.log(c)
+                this.input1 = c
+            }
+            render(){
+                const {isHot} = this.state
+                return (
+                    <div>
+                        <h2>今天天气很{isHot ? '炎热':'凉爽'}</h2>
+                        {/*<input ref={(c)=> {console.log(c);this.input1 = c}} type="text" placeholder="点击按钮提示数据"/>*/}
+                        <br/><br/>
+                        <input ref={this.saveInput} type="text"/>
+                        
+                        <button onClick={this.changeWeather}>点我切换天气</button>
+                        <button onClick={this.showData}>点我提示左侧数据</button>
+                    </div>
+                )
+            }
+        }
+        // 渲染
+        ReactDOM.render(<Demo/>,document.getElementById('test'))
+    </script>
+</body>
+</html>

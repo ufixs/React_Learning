@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!--  引入react—dom，用于react操纵dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // 创建组件
+        class Weather extends React.Component{
+            // 初始化组件
+            state = {isHot:true,wind:'微风'};
+            render(){
+                const {isHot,wind} = this.state;
+                return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热':'寒冷'},{wind}</h1>
+            };
+            // 自定义方法
+            changeWeather = ()=>{
+                const {isHot,} = this.state;
+                //  使用setState进行修改
+                this.setState({isHot:!isHot});
+            };
+        };
+        //渲染组件
+        const root = document.getElementById('test');
+        ReactDOM.render(<Weather/>,root);
+    </script>
+</body>
+</html>

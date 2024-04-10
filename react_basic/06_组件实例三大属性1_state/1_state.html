@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 容器 -->
+    <div id="test"></div>
+    <!-- 引入react核心库 -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!--  引入react—dom，用于react操纵dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Weather extends React.Component{
+            //构造器初始化,构造器调用1次
+            constructor(props){
+                super(props);
+                this.state = {isHot:true,wind:'微风'}
+                this.changeWeather = this.changeWeather.bind(this)
+            };
+            //render()调用1+n次
+            render(){
+                const {isHot,wind} = this.state;
+                return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热':'寒冷'}，{wind}</h1>
+            };
+            //点几次调几次
+            changeWeather(){
+                //将changeWeather放在实例原型对象上，供实例使用
+                //由于changeWeather是作为onCLick的回调，并不是通过实例调用的
+                //类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+                // console.log(this);
+                // 状态state不可直接更改，要使用setState方法更改
+                const {isHot} = this.state
+                this.setState({isHot:!isHot})
+                // console.log(this);
+            };
+        };
+        ReactDOM.render(<Weather/>,document.getElementById('test'));
+    </script>
+</body>
+</html>
